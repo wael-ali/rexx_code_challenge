@@ -48,6 +48,10 @@ class Event
     {
         return $this->date;
     }
+    public function getDisplayDate(): string
+    {
+        return date_format($this->date,"Y/m/d H:i:s");
+    }
 
     public function setDate(?\DateTimeInterface $date): self
     {

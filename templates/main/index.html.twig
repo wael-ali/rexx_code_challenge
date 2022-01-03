@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper .colored { background: #999; padding: 5px 8px; }
+    .example-wrapper td { padding: 5px 8px; }
+    .example-wrapper table { width: 95%; margin: auto; }
+</style>
+
+<div class="example-wrapper">
+<div>
+        {{ form_start(form) }}            
+            {{ form_row(form.employee) }}
+            {{ form_row(form.eventName) }}
+            {{ form_row(form.eventDate) }}
+            <input type="submit" value="filter" />
+        {{ form_end(form) }}
+    </div>
+    <hr>
+    {% set totalFee = 0 %}
+    <table>
+        <tr class="colored">
+            <th>Event</th>
+            <th>Date</th>
+            <th>Participant Name</th>
+            <th>Fee</th>
+        </tr>
+
+
+
+    {% if participations|length > 0 %}
+   
+
+
+    {% for participation in participations %}
+        {% set totalFee = totalFee + participation.fee %}
+        <tr class="{{ loop.index % 2 == 0 ? 'colored' : '' }}">
+            <td>{{ participation.event.name }}</td>
+            <td>{{ participation.event.date|format_datetime('short', 'none') }}</td>
+            <td>{{ participation.attendant.name }}</td>
+            <td>({{ participation.fee / 100 }})€</td>
+        </tr>
+    {% endfor %}
+        <tr>
+            <td></td>
+            <td>Total Fee</td>
+            <td></td>
+            <td>{{ totalFee / 100 }}€</td>
+        </tr>
+   {% else %}
+   <tr>
+            <td></td>
+            <td>No matches found</td>
+            <td></td>
+            <td></td>
+        </tr>
+  {% endif %}
+
+
+
+
+
+
+    </table> 
+
+
+
+</div>
+{% endblock %}
