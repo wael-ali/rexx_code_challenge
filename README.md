@@ -1,9 +1,9 @@
 # Data Base:
-tables:
+* tables:
     * user (name, email)
     * participation (fee)
     * event (date, name)
-relations:
+* relations:
     * user 1 --------> m participation
     * participation 1 --------> 1 user
 
